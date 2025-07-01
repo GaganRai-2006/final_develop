@@ -1,7 +1,7 @@
 
 const user=require('../schema/userSchema');
-class UserRepository{
-      async finduser(parameters){
+
+async  function finduser(parameters){
             try{
                   const response= await user.findOne({...parameters});
                   return response;
@@ -10,7 +10,7 @@ class UserRepository{
             }
       }
 
-      async CreateUser(userDetails){
+async  function CreateUser(userDetails){
             try{
                   const response=await user.create(userDetails);
                   return response;
@@ -18,6 +18,9 @@ class UserRepository{
                   console.log(error);
             }
       }
-}
 
-module.exports=UserRepository;
+
+module.exports={
+      finduser,
+      CreateUser
+}

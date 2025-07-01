@@ -1,5 +1,5 @@
 const mongose=require('mongoose')
-
+const bcrypt=require('bcrypt');
 const userSchema=new mongose.Schema({
       firstName:{
             type:String,
@@ -41,6 +41,13 @@ const userSchema=new mongose.Schema({
       }
 },{
       timestamps:true
+})
+
+userSchema.pre('save', async function(){
+      
+      const hashedPassword= await bcrypt.hash(this.password,10);
+      this.password=hashedPassword;
+      
 })
 
 const User=mongose.model("User",userSchema);
